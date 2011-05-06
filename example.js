@@ -1,4 +1,4 @@
-var sc = require('supercollider')()
+var sc = require('./supercollider')()
 
 // listen on all messages
 sc.on('message', function(message, address) {
