@@ -6,19 +6,31 @@ sc.on('message', function(message, address) {
 })
 
 // talk to server
-sc.send('/dumpOSC', 1, dump)
-sc.send('/notify', 1, dump)
-sc.send('/status', dump)
+sc.send('/dumpOSC', 1)
+sc.send('/notify', 1)
+sc.send('/status')
+
+sc.send('/g_freeAll', [0])
+sc.send('/clearSched')
+sc.send('/g_new', [1, 0, 0])
 
 // synthdef sine
-var sine
-sc.send('/s_new', 'sine', (sine = sc.nextNodeId()), 1, 1, dump)
+sc303 = sc.Synth('sc303', [1, 1])
+sc303.set('gate', 1, 'freq', 220);
+sc303.set('gate', 0);
+sc303.set('dec', 1);
+sc303.free()
 
-// stop sound after 2 seconds
-setTimeout(function() {
-  sc.send('/n_free', sine, dump)
-  process.exit(0)
-}, 2000)
+setInterval(function() {
+  // synthdef sine
+  sc303 = sc.Synth('sc303', [1, 1])
+  sc303.set('gate', 1, 'freq', 200 + (Math.random() * 100 | 0));
+  sc303.set('gate', 0);
+  sc303.set('dec', 1);
+  setTimeout(function() {
+    sc303.free()
+  }, 200)
+}, 472)
 
 // debug function
 function dump() {

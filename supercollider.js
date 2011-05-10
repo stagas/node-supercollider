@@ -48,3 +48,25 @@ SuperCollider.prototype.send = function() {
 SuperCollider.prototype.nextNodeId = function() {
   return this._nextId++
 }
+
+SuperCollider.prototype.Synth = function(synthName, args) {
+  var synth = new Synth(this, synthName, args)
+  return synth
+}
+
+var Synth = function(sc, synthName, args) {
+  this.sc = sc
+  this.node = sc.nextNodeId()
+  this.sc.send.apply(this.sc, ['/s_new', synthName, this.node].concat(args))
+  return this
+}
+
+Synth.prototype.set = function() {
+  this.sc.send.apply(this.sc, ['/n_set', this.node].concat([].slice.call(arguments)))
+  return this
+}
+
+Synth.prototype.free = function() {
+  this.sc.send.call(this.sc, '/n_free', this.node)
+  return this
+}
