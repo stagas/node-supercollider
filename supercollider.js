@@ -70,3 +70,16 @@ Synth.prototype.free = function() {
   this.sc.send.call(this.sc, '/n_free', this.node)
   return this
 }
+
+Synth.prototype.run = function(flag){
+    this.sc.send.apply(this.sc, ['/n_run',this.node, flag,  this.node].concat([].slice.call(arguments)))
+    return this
+}
+
+Synth.prototype.after = function(id){
+    this.sc.send.apply(this.sc, ['/n_after',this.node, id,  this.node].concat([].slice.call(arguments)))
+}
+
+Synth.prototype.before = function(id){
+    this.sc.send.apply(this.sc, ['/n_before',this.node, id,  this.node].concat([].slice.call(arguments)))
+}
