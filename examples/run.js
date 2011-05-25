@@ -14,8 +14,8 @@ setTimeout(function() {
 }, 500)
 
 // change amp after 500 ms
-setTimeout(function(1) {
-  sine.run()
+setTimeout(function() {
+  sine.run(1)
 }, 1000)
 
 // free after 3000 ms
