@@ -13,7 +13,7 @@ SynthDef("sine", {
 
 (
 SynthDef(\RingMod,{
-               |freq = 1000|
+               |freq = 1000|
 		var in = [0,1];
 		var out = [0,1];
 		var ring = SinOsc.kr(freq);
