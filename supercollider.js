@@ -61,27 +61,88 @@ var Synth = function(sc, synthName, args) {
   return this
 }
 
-Synth.prototype.set = function() {
+//SuperCollider's API messages,
+//in most cases, a function will have the same name as the message
+//and it will take the same arguments
+//use also Server-Command-Reference from SC manual
+
+//super collider master controls
+//to use them do sc.dumpOSC etc..
+SuperCollider.prototype.dumpOSC = function(num){
+    this.send('/dumpOSC', num)
+    return this
+}
+
+SuperCollider.prototype.quit = function(){
+    this.send('/quit')
+    return this
+}
+
+SuperCollider.prototype.notify = function(){
+    this.send('/notify')
+    return this
+}
+
+SuperCollider.prototype.status = function(){
+    this.send('/quit')
+    return this
+}
+
+SuperCollider.prototype.synch = function(num){
+    this.send('/synch', num)
+    return this
+}
+
+SuperCollider.prototype.clearSched = function(){
+    this.send('/clearSched')
+    return this
+}
+
+SuperCollider.prototype.status = function(num){
+    this.send('/error')
+    return this
+}
+
+//node messages
+Synth.prototype.n_set = function() {
   this.sc.send.apply(this.sc, ['/n_set', this.node].concat([].slice.call(arguments)))
   return this
 }
 
-Synth.prototype.free = function() {
+Synth.prototype.n_free = function() {
   this.sc.send.call(this.sc, '/n_free', this.node)
   return this
 }
 
-Synth.prototype.run = function(flag){
+Synth.prototype.n_run = function(flag){
     this.sc.send.apply(this.sc, ['/n_run',this.node, flag,  this.node].concat([].slice.call(arguments)))
     return this
 }
 
-Synth.prototype.after = function(id){
+Synth.prototype.n_after = function(id){
     this.sc.send.apply(this.sc, ['/n_after',this.node, id,  this.node].concat([].slice.call(arguments)))
     return this
 }
 
-Synth.prototype.before = function(id){
+Synth.prototype.n_before = function(id){
     this.sc.send.apply(this.sc, ['/n_before',this.node, id,  this.node].concat([].slice.call(arguments)))
     return this
 }
+
+
+//group messages
+Synth.prototype.g_tail = function(group){
+    this.sc.send.apply(this.sc, ['/g_tail',group || 1, this.node].concat([].slice.call(arguments)))
+    return this
+}
+
+Synth.prototype.g_head = function(group){
+    this.sc.send.apply(this.sc, ['/g_head',group || 1, this.node ].concat([].slice.call(arguments)))
+    return this
+}
+
+Synth.prototype.g_freeAll = function(group){
+    this.sc.send('/g_freeAll', group || 1)
+    return this
+}
+

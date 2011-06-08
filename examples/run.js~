@@ -10,8 +10,13 @@ sine = sc.Synth('sine', [1, 1, 'freq', 440, 'amp', 0.2])
 
 // change amp after 500 ms
 setTimeout(function() {
-  sine.set('amp', 0.6)
+  sine.run(0)
 }, 500)
+
+// change amp after 500 ms
+setTimeout(function() {
+  sine.run(1)
+}, 1000)
 
 // free after 3000 ms
 setTimeout(function() {
