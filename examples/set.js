@@ -6,7 +6,7 @@ sc.on('message', function(message, address) {
 })
 
 // create a synth
-sine = sc.Synth('sine', [1, 1, 'freq', 440, 'amp', 0.2])
+var sine = sc.Synth('sine', [1, 1, 'freq', 440, 'amp', 0.2])
 
 // change amp after 500 ms
 setTimeout(function() {

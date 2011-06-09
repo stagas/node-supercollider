@@ -1,7 +1,7 @@
 var util = require('util')
-  , path = require('path')
-  , osc = require('node-osc')
-  , EventEmitter = require('events').EventEmitter
+, path = require('path')
+, osc = require('node-osc')
+, EventEmitter = require('events').EventEmitter
 
 var SuperCollider = module.exports = function(port, host) {
   if (!(this instanceof SuperCollider)) return new SuperCollider(port, host)
@@ -29,8 +29,8 @@ SuperCollider.prototype.roundRobinPort = function() {
 
 SuperCollider.prototype.send = function() {
   var self = this
-    , args = [].slice.call(arguments)
-    , cb
+  , args = [].slice.call(arguments)
+  , cb
   if ('function' === typeof args[args.length - 1]) {
     cb = args.pop()
   }
@@ -69,38 +69,38 @@ var Synth = function(sc, synthName, args) {
 //super collider master controls
 //to use them do sc.dumpOSC etc..
 SuperCollider.prototype.dumpOSC = function(num){
-    this.send('/dumpOSC', num)
-    return this
+  this.send('/dumpOSC', num)
+  return this
 }
 
 SuperCollider.prototype.quit = function(){
-    this.send('/quit')
-    return this
+  this.send('/quit')
+  return this
 }
 
 SuperCollider.prototype.notify = function(){
-    this.send('/notify')
-    return this
+  this.send('/notify')
+  return this
 }
 
 SuperCollider.prototype.status = function(){
-    this.send('/quit')
-    return this
+  this.send('/quit')
+  return this
 }
 
 SuperCollider.prototype.synch = function(num){
-    this.send('/synch', num)
-    return this
+  this.send('/synch', num)
+  return this
 }
 
 SuperCollider.prototype.clearSched = function(){
-    this.send('/clearSched')
-    return this
+  this.send('/clearSched')
+  return this
 }
 
 SuperCollider.prototype.status = function(num){
-    this.send('/error')
-    return this
+  this.send('/error')
+  return this
 }
 
 //node messages
@@ -115,34 +115,34 @@ Synth.prototype.n_free = function() {
 }
 
 Synth.prototype.n_run = function(flag){
-    this.sc.send.apply(this.sc, ['/n_run',this.node, flag,  this.node].concat([].slice.call(arguments)))
-    return this
+  this.sc.send.apply(this.sc, ['/n_run', this.node, flag,  this.node].concat([].slice.call(arguments)))
+  return this
 }
 
 Synth.prototype.n_after = function(id){
-    this.sc.send.apply(this.sc, ['/n_after',this.node, id,  this.node].concat([].slice.call(arguments)))
-    return this
+  this.sc.send.apply(this.sc, ['/n_after',this.node, id,  this.node].concat([].slice.call(arguments)))
+  return this
 }
 
 Synth.prototype.n_before = function(id){
-    this.sc.send.apply(this.sc, ['/n_before',this.node, id,  this.node].concat([].slice.call(arguments)))
-    return this
+  this.sc.send.apply(this.sc, ['/n_before',this.node, id,  this.node].concat([].slice.call(arguments)))
+  return this
 }
 
 
 //group messages
 Synth.prototype.g_tail = function(group){
-    this.sc.send.apply(this.sc, ['/g_tail',group || 1, this.node].concat([].slice.call(arguments)))
-    return this
+  this.sc.send.apply(this.sc, ['/g_tail', group || 1, this.node].concat([].slice.call(arguments)))
+  return this
 }
 
 Synth.prototype.g_head = function(group){
-    this.sc.send.apply(this.sc, ['/g_head',group || 1, this.node ].concat([].slice.call(arguments)))
-    return this
+  this.sc.send.apply(this.sc, ['/g_head', group || 1, this.node ].concat([].slice.call(arguments)))
+  return this
 }
 
 Synth.prototype.g_freeAll = function(group){
-    this.sc.send('/g_freeAll', group || 1)
-    return this
+  this.sc.send('/g_freeAll', group || 1)
+  return this
 }
 

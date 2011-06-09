@@ -6,26 +6,23 @@ sc.on('message', function(message, address) {
 })
 
 // create  synths
-lfo = sc.Synth('RingMod', [1,1,'freq',10])
-sine = sc.Synth('sine', [1, 1, 'freq', 440, 'amp', 0.2])
-
+var lfo = sc.Synth('RingMod', [1,1,'freq',10])
+var sine = sc.Synth('sine', [1, 1, 'freq', 440, 'amp', 0.2])
 
 //apply lfo
 setTimeout(function(){
-    sine.n_before(lfo.node)
+  sine.n_before(lfo.node)
 },1000)
 
 //move out lfo
 setTimeout(function(){
-    sine.n_after(lfo.node)
+  sine.n_after(lfo.node)
 },2000)
-
-
 
 // free 
 setTimeout(function() {
   sine.n_free()
-    lfo.n_free()
-     process.exit(0)
+  lfo.n_free()
+  process.exit(0)
 }, 3000)
 
